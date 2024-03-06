@@ -1,6 +1,39 @@
 import "./style.css";
 import PropTypes from "prop-types";
 
+const skills = [
+  {
+    skill: "HTML+CSS",
+    level: "advanced",
+    color: "#2662EA",
+  },
+  {
+    skill: "JavaScript",
+    level: "advanced",
+    color: "#EFD81D",
+  },
+  {
+    skill: "Web Design",
+    level: "advanced",
+    color: "#C3DCAF",
+  },
+  {
+    skill: "Git and GitHub",
+    level: "intermediate",
+    color: "#E84F33",
+  },
+  {
+    skill: "React",
+    level: "advanced",
+    color: "#60DAFB",
+  },
+  {
+    skill: "Svelte",
+    level: "beginner",
+    color: "#FF3B00",
+  },
+];
+
 function App() {
   return (
     <div className="card">
@@ -39,21 +72,26 @@ function Intro() {
 function SkillList() {
   return (
     <div className="skill-list">
-      <Skill color="red" emoij="🚧" skill="HTML + CSS" />
-      <Skill color="orange" emoij="🥕" skill="JavaScript" />
-      <Skill color="blue" emoij="🍠" skill="C, C++" />
-      <Skill color="purple" emoij="🍣" skill="Python" />
-      <Skill color="green" emoij="🍡" skill="Java" />
+      {skills.map((skill) => (
+        <Skill
+          skill={skill.skill}
+          color={skill.color}
+          level={skill.level}
+          key={skill.skill}
+        />
+      ))}
     </div>
   );
 }
 
-function Skill(props) {
+function Skill({ skill, color, level }) {
   return (
-    <div className="skill" style={{ backgroundColor: props.color }}>
+    <div className="skill" style={{ backgroundColor: color }}>
+      <span>{skill}</span>
       <span>
-        {props.skill}
-        {props.emoij}
+        {level === "beginner" && "👶"}
+        {level === "intermediate" && "👍"}
+        {level === "advanced" && "💪"}
       </span>
     </div>
   );
@@ -62,7 +100,7 @@ function Skill(props) {
 //used to specifiy that the props should be string and are required, helping to catch potential issues early in the development process
 Skill.propTypes = {
   color: PropTypes.string.isRequired,
-  emoij: PropTypes.string.isRequired,
+  level: PropTypes.string.isRequired,
   skill: PropTypes.string.isRequired,
 };
 
